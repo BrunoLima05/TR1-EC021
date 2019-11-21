@@ -1,0 +1,16 @@
+express
+nodemon
+handlebars
+body-parser
+
+mongo db não tem tabela
+é documento ex: json
+{
+	nome : "soldado"
+	idade : 22
+	email : "soldado@hotmail.com"
+}
+
+collection conjunto de documentos do msm tipo.
+
+Arrumar JSON (Está com o do projeto do YABU)

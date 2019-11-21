@@ -1,0 +1,208 @@
+{
+	"info": {
+		"_postman_id": "35098ef3-9f0d-411f-afd6-6f4d07b83042",
+		"name": "Pratica 9",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Inserir",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "743f0402-f366-4e04-bdc3-87b4dfc86553",
+						"exec": [
+							"pm.globals.clear(); //Limpa variáveis do Postman"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "2a177fea-c83c-4b7e-91c4-5b3737beba2d",
+						"exec": [
+							"//Salvar token no Postman",
+							"var jsonData = pm.response.json(); //Pega a response como Json",
+							"",
+							"pm.globals.set(\"toddy_id\", jsonData._id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"lote\": \"ACB\",\n    \"conteudo\": 2000,\n    \"validade\": \"15/08/2020\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/salvar",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"salvar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Atualizar",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "743f0402-f366-4e04-bdc3-87b4dfc86553",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "2a177fea-c83c-4b7e-91c4-5b3737beba2d",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"lote\": \"ZDR\",\n    \"conteudo\": 200,\n    \"validade\": \"10/10/2020\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/salvar/{{toddy_id}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"salvar",
+						"{{toddy_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/listar",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"listar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Excluir",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "743f0402-f366-4e04-bdc3-87b4dfc86553",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "2a177fea-c83c-4b7e-91c4-5b3737beba2d",
+						"exec": [
+							"pm.globals.clear(); //Limpa variáveis do Postman"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": \"{{toddy_id}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/excluir",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"excluir"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

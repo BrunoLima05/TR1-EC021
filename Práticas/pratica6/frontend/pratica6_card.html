@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<!--Import Google Icon Font-->
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<!--Import materialize.css-->
+		<link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+  
+		<!--Let browser know website is optimized for mobile-->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+		<meta charset="utf-8" />
+		<title>EC021 - Prática 6</title>
+	</head>
+
+	<body>
+		<div class="container"> <!-- Container do body -->
+			<div class="row center">
+				<h4>Toddy's System</h4>
+			</div>
+
+			<div class="row"> <!-- Linha da tabela -->
+				<div class="col l3 m6 s12"> <!-- Coluna da tabela -->
+					<select id="lote">
+						<option value="">Selecione...</option>
+					</select>
+				</div>
+			</div>
+	
+			<div id="lista" class="row"></div>
+		</div>
+		<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+		<script type="text/javascript" src="js/materialize.min.js"></script>
+	</body>
+
+</html>
+<script>
+	var mid = 'http://localhost:5000/toddy/';
+
+	$(document).ready(function() {
+		$.ajax({
+			url: mid + 'buscarLotes',
+			type: 'GET',
+			success: function(result) {
+				$.each(result, function(indice, toddy) {
+					$("#lote").append(`<option value="`+toddy.lote+`">`+toddy.lote+`</option>`);
+				});
+			},
+			error: function() {
+				alert('Houve um erro.');
+			},
+			complete: function() {
+				$('#lote').formSelect(); //Carregando o select do materialize css (só devemos carregar após popular)
+			}
+		})
+	});
+
+	$("#lote").change(function() {
+		$("#lista").empty(); //Limpando a lista
+
+		var lote = this.value;
+
+		$.ajax({
+			url: mid + 'buscarPorLote?lote=' + lote,
+			type: 'GET',
+			beforeSend: function() {
+				$("#lote").attr("disabled", true); //Desabilitando o combo box
+			},
+			success: function(result) {
+				$.each(result, function(indice, toddy) {
+					$("#lista").append(`<div class="col s12 m6 l3">`+
+											`<div class="card large hoverable">`+
+												`<div class="card-image">`+
+													`<img src="`+randomImg()+`">`+
+												`</div>`+
+												`<div class="card-content">`+
+													`<p>`+ 
+														`ID: `+toddy.id+`<br>`+
+														`Lote: `+toddy.lote+`<br>`+
+														`Conteúdo: `+toddy.conteudo+`<br>`+
+														`Validade: `+toddy.validade+`<br>`+
+													`</p>`+
+												`</div>`+
+												`<div class="card-action">`+
+													`<a href="javascript:alert('Você clicou para alterar o ID = `+toddy.id+`')">Alterar</a>`+
+												`</div>`+
+											`</div>`+
+										`</div>`);
+				});
+			},
+			error: function() {
+				alert('Houve um erro.');
+			},
+			complete: function() {
+				$("#lote").attr("disabled", false); //Habilitando o combo box
+			}
+		})
+	});
+
+	function randomImg() {
+		var folder = 'img/';
+		var files = ['toddy1.jpg', 'toddy2.jpg', 'toddy3.jpg', 'toddy4.jpg', 'toddy5.jpg'];
+		var size = files.length;
+
+		var randomPosition = parseInt(Math.random()*size);
+
+		return folder+files[randomPosition];
+	}
+</script>

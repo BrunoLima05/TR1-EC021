@@ -1,0 +1,243 @@
+{
+	"info": {
+		"_postman_id": "1f3b7ac4-00fc-4491-84c7-5d3a8e8d1cab",
+		"name": "Toddy with Mongoose",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Criar Toddy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d1bc932a-091f-41b5-b0da-1250bec3577b",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.globals.set(\"toddy_id\", jsonData._id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"lote\": \"XYZ\",\n\t\"conteudo\": 1500,\n\t\"validade\": \"15/02/2020\"\n}\n\n"
+				},
+				"url": {
+					"raw": "http://localhost:5000/toddy/salvar",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"toddy",
+						"salvar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Atualizar Toddy",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"lote\": \"ABC\",\n\t\"conteudo\": 120,\n\t\"validade\": \"15/02/2020\"\n}\n\n"
+				},
+				"url": {
+					"raw": "http://localhost:5000/toddy/salvar/{{toddy_id}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"toddy",
+						"salvar",
+						"{{toddy_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar Toddy",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/toddy/listar",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"toddy",
+						"listar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Buscar por ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/toddy/buscarPorId?id={{toddy_id}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"toddy",
+						"buscarPorId"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "{{toddy_id}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Buscar Vencidos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/toddy/buscarVencidos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"toddy",
+						"buscarVencidos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Buscar Lotes",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "77275fb5-89b5-40c6-a3ea-15451193d206",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.globals.set(\"lote\", jsonData[0]);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/toddy/buscarLotes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"toddy",
+						"buscarLotes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Buscar Por Lote",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/toddy/buscarPorLote?lote={{lote}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"toddy",
+						"buscarPorLote"
+					],
+					"query": [
+						{
+							"key": "lote",
+							"value": "{{lote}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Excluir",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\": \"{{toddy_id}}\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5000/toddy/excluir",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"toddy",
+						"excluir"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

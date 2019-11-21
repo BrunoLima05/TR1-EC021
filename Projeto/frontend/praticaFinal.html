@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<title>EC021 - Prática Final</title>
+</head>
+
+<body>
+	<button id="botao">Mostrar/Ocultar dados</button>
+	<select id="lote">
+		<option value="">Selecione...</option>
+	</select>
+
+	<div>
+		</br>
+	</div>
+	<table id="tabela" border="1px">
+		<thead>
+			<th>ID</th>
+			<th>Lote</th>
+			<th>Conteúdo</th>
+			<th>Validade</th>
+		</thead>
+		<tbody>
+			
+		</tbody>
+	</table>
+	<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+</body>
+
+</html>
+<script>
+	var mid = 'http://localhost:5000/toddy/';
+
+	$(document).ready(function () {
+		$.ajax({
+			url: mid + 'buscarLotes',
+			type: 'GET',
+			success: function (result) {
+				$.each(result, function (indice, toddy) {
+					$("#lote").append(`<option value="` + toddy.lote + `">Lote: ` + toddy.lote + `</option>`);
+				});
+			},
+			error: function () {
+				alert('Houve um erro.');
+			}
+		})
+	});
+
+	$("#lote").change(
+		function () {
+			var lote = this.value;
+
+			$("#lote").attr("disabled", true); //Desabilito o combobox
+			
+			$.ajax({
+				url: mid + 'buscarPorLote?lote=' + lote,
+				type: 'GET',
+				success: function (result) {
+					$("#tabela > tbody").empty();
+
+					$.each(result, function (indice, toddy) {
+						$("#tabela > tbody").append(
+							`<tr>`+
+							`<td>`+toddy.id+`</td>`+
+							`<td>`+toddy.lote+`</td>`+
+							`<td>`+toddy.conteudo+`</td>`+
+							`<td>`+toddy.validade+`</td>`+
+							`</tr>`
+						);
+					});
+				},
+				error: function () {
+					alert('Houve um erro.');
+				},
+				complete: function () {
+					$("#lote").attr("disabled", false); //Terminando habilito o combobox
+				}
+			})
+		}
+	);
+
+	$("#botao").click(
+		function () {
+			//Toggle => exibe ou oculta o tbody
+			$("#tabela > tbody").toggle();
+		}
+	);
+</script>
